@@ -110,4 +110,80 @@ class User extends CI_Controller
             }
         }
     }
+    public function dataInstansi()
+    {
+        $data['title'] = 'Data Instasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+        $data['dosen'] = $this->db->get_where('dosen', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+        $this->form_validation->set_rules('jabatan_fungsional', 'Jabatan fungsional', 'required');
+        $this->form_validation->set_rules('ikatan_kerja', 'Ikatan kerja', 'required');
+        $this->form_validation->set_rules('aktivitas', 'Aktivitas', 'required');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/datainstansi', $data);
+            $this->load->view('templates/footer');
+
+        } else {
+            $jabatan_fungsional = $this->input->post('jabatan_fungsional');
+            $ikatan_kerja = $this->input->post('ikatan_kerja');
+            $aktivitas = $this->input->post('aktivitas');
+            $deskripsi = $this->input->post('deskripsi');
+           
+            $this->db->set('jabatan_fungsional', $jabatan_fungsional);
+            $this->db->set('status_ikatan_kerja', $ikatan_kerja);
+            $this->db->set('status_aktivitas', $aktivitas);
+            $this->db->set('deskripsi', $deskripsi);
+            $this->db->where('nidn', $this->session->userdata('nidn'));
+            $this->db->update('dosen');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!</div>');
+            redirect('user/datainstansi');
+        }
+    }
+    public function dataPersonal()
+    {
+        $data['title'] = 'Data Personal';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+        $data['personal'] = $this->db->get_where('datapersonal', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+        $this->form_validation->set_rules('jabatan_fungsional', 'Jabatan fungsional', 'required');
+        $this->form_validation->set_rules('ikatan_kerja', 'Ikatan kerja', 'required');
+        $this->form_validation->set_rules('aktivitas', 'Aktivitas', 'required');
+        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim');
+
+        if ($this->form_validation->run() == false) {
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataPersonal', $data);
+            $this->load->view('templates/footer');
+
+        } else {
+            $jabatan_fungsional = $this->input->post('jabatan_fungsional');
+            $ikatan_kerja = $this->input->post('ikatan_kerja');
+            $aktivitas = $this->input->post('aktivitas');
+            $deskripsi = $this->input->post('deskripsi');
+           
+            $this->db->set('jabatan_fungsional', $jabatan_fungsional);
+            $this->db->set('status_ikatan_kerja', $ikatan_kerja);
+            $this->db->set('status_aktivitas', $aktivitas);
+            $this->db->set('deskripsi', $deskripsi);
+            $this->db->where('nidn', $this->session->userdata('nidn'));
+            $this->db->update('dosen');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!</div>');
+            redirect('user/datainstansi');
+        }
+    
+    }
 }

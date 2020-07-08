@@ -83,6 +83,7 @@ class Admin extends CI_Controller
         $this->load->model('Akun_model', 'akun');
         $data['akun'] = $this->akun->getAkun();
         $data['role'] = $this->db->get('user_role')->result_array();
+        
 
         $this->form_validation->set_rules('nidn', 'Nidn','required|trim|is_unique[user.nidn]', [
             'is_unique' => 'NIDN sudah terdaftar!'
@@ -92,6 +93,8 @@ class Admin extends CI_Controller
             'is_unique' => 'Email ini sudah terdaftar!'
         ]);
         $this->form_validation->set_rules('role', 'Role', 'required');
+        $this->form_validation->set_rules('jenis_kelamin', 'Jenis_kelamin', 'required');
+        $this->form_validation->set_rules('program_studi', 'Program_studi', 'required');
 
         if ($this->form_validation->run() == false) {
         $this->load->view('templates/header', $data);
@@ -111,10 +114,82 @@ class Admin extends CI_Controller
                 'is_active' => '1',
                 'date_created' =>time()
             ];
+            $dataDosen = [
+                'nidn' => $this->input->post('nidn'),
+                'nama' => htmlspecialchars($this->input->post('nama', true)),
+                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                'program_studi' => $this->input->post('program_studi'),
+                'perguruan_tinggi' => 'STT-Garut'
+            ];
             $this->db->insert('user', $data);
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">New menu added!</div>');
+            $this->db->insert('dosen', $dataDosen);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Akun berhasil dibuat!<br>segera lengkapi data yang diperlukan</div>');
             
             redirect('admin/akun');
         }
     }
+
+    public function datadosen()
+    {
+        $data['title'] = 'Data Dosen';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['dosen'] = $this->db->get('dosen')->result_array();
+        if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/dosen', $data);
+        $this->load->view('templates/footer');
+        }
+    }
+    public function informasi()
+    {
+        $data['title'] = 'Informasi';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $data['informasi'] = $this->db->get('informasi')->result_array();
+
+        $this->form_validation->set_rules('informasi', 'informasi', '');
+
+        if ($this->form_validation->run() == false) {
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('admin/informasi', $data);
+        $this->load->view('templates/footer');
+        }else{
+            $upload_image = $_FILES['image']['name'];
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|png';
+                $config['max_size']      = '2048';
+                $config['upload_path'] = './assets/img/profile/';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['user']['image'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/profile/' . $old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                } else {
+                    echo $this->upload->dispay_errors();
+                }
+            }
+            $data = [
+                'informasi' => $this->input->post('informasi'),
+            ];
+            $this->db->insert('informasi', $data);
+            redirect('admin/informasi');
+        }
+    }
+    public function cekNIDN()
+    {
+        $nidn = $this->input->post('nidn');
+        echo json_encode($this->db->get_where('user', ['nidn' => $nidn])->row_array());
+    }
+
+
 }

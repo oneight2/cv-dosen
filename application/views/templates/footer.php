@@ -2,7 +2,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Web Programming UNPAS <?= date('Y'); ?></span>
+                        <span>Copyright &copy; Sekolah Tinggi Teknologi Garut <?= date('Y'); ?></span>
                     </div>
                 </div>
             </footer>
@@ -47,6 +47,14 @@
 
             <!-- Custom scripts for all pages-->
             <script src="<?= base_url('assets/'); ?>js/sb-admin-2.min.js"></script>
+            <script>
+                ClassicEditor
+                .create( document.querySelector( '.editor' ) )
+                .catch( error => {
+                    console.error( error );
+                } );
+          
+            </script>
 
             <script>
                 $('.custom-file-input').on('change', function() {
@@ -73,6 +81,25 @@
                     });
 
                 });
+
+                $('#nidn').on('keyup', function(){
+                    const nidn = $('#nidn').val();
+                    $.ajax({
+                        url: "<?= base_url('admin/cekNIDN'); ?>",
+                        type: 'post',
+                        data: {
+                            nidn: nidn
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                           if(data){
+                            $('#notif').html('<span style="font-size:1rem; color:tomato;margin-bottom:0">NIDN Sudah Terdaftar </span>')
+                           }else{
+                             $('#notif').html('<span style="font-size:1rem; color:green; margin-bottom:0">NIDN Belum Terdaftar </span>')
+                           }
+                        }
+                    });
+                })
             </script>
 
             </body>

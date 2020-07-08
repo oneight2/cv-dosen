@@ -9,18 +9,27 @@
 			<h6 class="m-0 font-weight-bold text-primary">Tambah Akun</h6>
 		</a>
 		<!-- Card Content - Collapse -->
-		<div class="collapse show" id="collapseCardExample" style="">
+		<div class="collapse" id="collapseCardExample" style="">
 			<div class="card-body">
 				<form action="<?= base_url('admin/akun'); ?>" method="post">
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label for="nidn">NIDN</label>
+								<label for="nidn" id="notif">NIDN</label>
 								<input type="text" class="form-control" id="nidn" name="nidn" >
+								<p id="notif"></p>
 							</div>
 							<div class="form-group">
 								<label for="nama">Nama</label>
 								<input type="text" class="form-control" id="nama" name="nama">
+							</div>
+							<div class="form-group">
+								<label for="jenkel">Jenis Kelamin</label>
+								<select name="jenis_kelamin" id="jenkel" class="form-control">
+									<option value=""class="disable">Pilih Jenis Kelamin</option>
+									<option value="Laki-laki">Laki-laki</option>
+									<option value="Perempuan">Perempuan</option>
+								</select>
 							</div>
 						</div>
 						<div class="col-md-6">
@@ -29,9 +38,18 @@
 								<input type="email" class="form-control" id="email" name="email">
 							</div>
 							<div class="form-group">
+								<label for="prodi">Program Studi</label>
+								<select name="program_studi" id="prodi" class="form-control">
+									<option value="">Pilih Prodi</option>
+									<option value="Teknik Informatika">Teknik Informatika</option>
+									<option value="Teknik Sipil">Teknik Sipil</option>
+									<option value="Teknik Industri">Teknik Industri</option>
+								</select>
+							</div>
+							<div class="form-group">
 								<label for="role">Role</label>
 								<select name="role" id="role" class="form-control">
-									<option value="">Select Role</option>
+									<option value="">Pilih Role</option>
 									<?php foreach ($role as $row) : ?>
 									<option value="<?= $row['id']; ?>"><?= $row['role']; ?></option>
 									<?php endforeach; ?>
@@ -51,7 +69,6 @@
 				<div class="col-lg-12">
 					<?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 					<?= $this->session->flashdata('message'); ?>
-					<a href="" class="btn btn-primary mb-3" data-toggle="modal" data-target="#tambahDosenModal">Tambah Akun</a>
 					<table class="table table-hover">
 						<thead>
 							<tr>
@@ -89,46 +106,5 @@
 		</div>
 	</div>
 	<!-- /.container-fluid -->
-</div>
-</div>
-<!-- End of Main Content -->
-<!-- Modal -->
-<div class="modal fade" id="tambahDosenModal" tabindex="-1" role="dialog" aria-labelledby="tambahDosenModal" aria-hidden="true">
-<div class="modal-dialog" role="document">
-	<div class="modal-content">
-		<div class="modal-header">
-			<h5 class="modal-title" id="newRoleModalLabel">Tambah Data Dosen</h5>
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			<span aria-hidden="true">&times;</span>
-			</button>
-		</div>
-		<form action="<?= base_url('admin/akun'); ?>" method="post">
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="nidn">NIDN</label>
-					<input type="text" class="form-control" id="nidn" name="nidn" >
-				</div>
-				<div class="form-group">
-					<label for="nama">Nama</label>
-					<input type="text" class="form-control" id="nama" name="nama">
-				</div>
-				<div class="form-group">
-					<label for="prodi">Email</label>
-					<input type="email" class="form-control" id="prodi" name="email">
-				</div>
-				<select name="role" id="role" class="form-control">
-					<option value="">Select Role</option>
-					<?php foreach ($role as $row) : ?>
-					<option value="<?= $row['id']; ?>"><?= $row['role']; ?></option>
-					<?php endforeach; ?>
-				</select>
-				
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="submit" class="btn btn-primary">Tambah</button>
-			</div>
-		</form>
-	</div>
 </div>
 </div>
