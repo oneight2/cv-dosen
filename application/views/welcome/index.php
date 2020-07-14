@@ -10,11 +10,9 @@
 							<h1 class="h4 judul">Selamat Datang di</h1>
 							<h1 class="h4 judul mb-5">Pangkalan Data Sekolah Tinggi Teknologi Garut</h1>
 						</div>
-						<div class="form-group">
-							<input type="text" class="form-control form-control-user" id="nidn" name="nidn" placeholder="Masukan data NIDN atau Nama Dosen" value="">
-							<p id="notif"></p>
-							
-						</div>
+						  <div class="form-group"id="prefetch" >
+						   <input type="text" name="search_box" id="search_box" class="form-control typeahead" placeholder="Search Here" />
+						  </div>
 					</div>
 				</div>
 			</div>

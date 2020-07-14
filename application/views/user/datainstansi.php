@@ -2,7 +2,6 @@
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-	<?php var_dump($this->session->userdata('nidn')) ?>
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
@@ -11,7 +10,7 @@
 				</div>
 			</div>
 			<div class="row center">
-				<div class="card mb-3 col-sm-8">
+				<div class="card mb-3 col-sm-6">
 					<div class="row no-gutters">
 						<div class="col-md-4">
 							<img src="<?= base_url('assets/img/profile/') . $user['image']; ?>" class="card-img">
@@ -66,12 +65,11 @@
 			<div class="form-group row">
 				<label for="deksripsi" class="col-sm-2 col-form-label">Deskripsi</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control editor" id="deskripsi" name="deksripsi" value="<?= $dosen['deskripsi']; ?>">
+					<textarea type="text" class="form-control " id="deskripsi" name="deskripsi" ><?= $dosen['deskripsi']; ?></textarea>
 					<?= form_error('deskripsi', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary right">Update Informasi</button>
-			<?php var_dump($_POST); ?>
 		</form>
 		</div>
 	</div>

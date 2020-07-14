@@ -2,7 +2,6 @@
 <div class="container-fluid">
 	<!-- Page Heading -->
 	<h1 class="h3 mb-4 text-gray-800"><?= $title; ?></h1>
-	<?php var_dump($this->session->userdata('nidn')) ?>
 	<div class="card">
 		<div class="card-body">
 			<div class="row">
@@ -10,6 +9,7 @@
 					<?= $this->session->flashdata('message'); ?>
 				</div>
 			</div>
+			<?php var_dump($this->session->userdata('nidn')) ?>
 			<div class="row center">
 				<div class="card mb-3 col-sm-8">
 					<div class="row no-gutters">
@@ -42,7 +42,7 @@
 									<option value=""class="disable">Pilih Jenis Kelamin</option>
 									<option value="Laki-laki">Laki-laki</option>
 									<option value="Perempuan">Perempuan</option>
-								</select>
+					</select>
 				</div>
 			</div>
 			<div class="form-group row">
@@ -69,19 +69,19 @@
 			<div class="form-group row">
 				<label for="alamat" class="col-sm-2 col-form-label">Alamat</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control editor" id="deskripsi" name="alamat" value="<?= $personal['alamat']; ?>">
-					<?= form_error('deskripsi', '<small class="text-danger pl-3">', '</small>'); ?>
+					<input type="text" class="form-control" id="alamat" name="alamat" value="<?= $personal['alamat']; ?>">
+					<?= form_error('Alamat', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="nomor" class="col-sm-2 col-form-label">No Handphone</label>
 				<div class="col-sm-10">
-					<input type="text" class="form-control editor" id="nomor" name="nomor_telp" value="<?= $personal['nomor_telp']; ?>">
+					<input type="number" class="form-control" id="nomor" name="nomor_telp" value="<?= $personal['nomor_telp']; ?>">
 					<?= form_error('nomor', '<small class="text-danger pl-3">', '</small>'); ?>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary right">Update Informasi</button>
-			<?php var_dump($_POST); ?>
+			<?php var_dump($_POST) ?>
 		</form>
 		</div>
 	</div>

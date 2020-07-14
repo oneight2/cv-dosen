@@ -12,28 +12,14 @@
 						<thead>
 							<tr>
 								<th scope="col">No</th>
-								<th scope="col">NIDN</th>
-								<th scope="col">Nama</th>
+								<th scope="col">Periode</th>
 								<th scope="col">Program Studi</th>
-								<th scope="col">Aksi</th>
+								<th scope="col">Kode Mata Kuliah</th>
+								<th scope="col">Nama Mata Kuliah</th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $i = 1; ?>
-							<?php foreach ($dosen as $row) : ?>
-							<tr>
-								<th scope="row"><?= $i; ?></th>
-								<td><?= $row['nidn']; ?></td>
-								<td><?= $row['nama']; ?></td>
-								<td><?= $row['program_studi']; ?></td>
-								<td>
-									<a href="" class="badge badge-warning">access</a>
-									<a href="" class="badge badge-success">edit</a>
-									<a href="" class="badge badge-danger">delete</a>
-								</td>
-							</tr>
-							<?php $i++; ?>
-							<?php endforeach; ?>
+							
 						</tbody>
 					</table>
 				</div>

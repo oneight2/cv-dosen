@@ -24,19 +24,13 @@
 								<input type="text" class="form-control" id="nama" name="nama">
 							</div>
 							<div class="form-group">
-								<label for="jenkel">Jenis Kelamin</label>
-								<select name="jenis_kelamin" id="jenkel" class="form-control">
-									<option value=""class="disable">Pilih Jenis Kelamin</option>
-									<option value="Laki-laki">Laki-laki</option>
-									<option value="Perempuan">Perempuan</option>
-								</select>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
 								<label for="email">Email</label>
 								<input type="email" class="form-control" id="email" name="email">
 							</div>
+
+						</div>
+						<div class="col-md-6">
+							
 							<div class="form-group">
 								<label for="prodi">Program Studi</label>
 								<select name="program_studi" id="prodi" class="form-control">
@@ -55,11 +49,13 @@
 									<?php endforeach; ?>
 								</select>
 							</div>
+							<div class="form-group">
+								<button type="submit" class="btn btn-primary right">Tambah</button>
+							</div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary">Tambah</button>
+					
 				</form>
-				<?php var_dump($_POST) ?>
 			</div>
 		</div>
 	</div>
@@ -69,7 +65,7 @@
 				<div class="col-lg-12">
 					<?= form_error('menu', '<div class="alert alert-danger" role="alert">', '</div>'); ?>
 					<?= $this->session->flashdata('message'); ?>
-					<table class="table table-hover">
+					<table class="table table-hover dataTable" id="dataTable" width="100%" cellspacing="0">
 						<thead>
 							<tr>
 								<th scope="col">No</th>
@@ -94,7 +90,6 @@
 								<td>
 									<a href="" class="badge badge-warning">Reset Password</a>
 									<a href="" class="badge badge-success">Edit</a>
-									<a href="" class="badge badge-danger">Delete</a>
 								</td>
 							</tr>
 							<?php $i++; ?>

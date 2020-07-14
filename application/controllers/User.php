@@ -121,7 +121,7 @@ class User extends CI_Controller
         $this->form_validation->set_rules('jabatan_fungsional', 'Jabatan fungsional', 'required');
         $this->form_validation->set_rules('ikatan_kerja', 'Ikatan kerja', 'required');
         $this->form_validation->set_rules('aktivitas', 'Aktivitas', 'required');
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim');
+        // $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'required');
 
         if ($this->form_validation->run() == false) {
 
@@ -147,6 +147,7 @@ class User extends CI_Controller
             redirect('user/datainstansi');
         }
     }
+
     public function dataPersonal()
     {
         $data['title'] = 'Data Personal';
@@ -154,12 +155,12 @@ class User extends CI_Controller
 
        $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
 
-        $data['personal'] = $this->db->get_where('datapersonal', ['nidn' => $this->session->userdata('nidn')])->row_array();
+        $data['personal'] = $this->db->get_where('data_personal', ['nidn' => $this->session->userdata('nidn')])->row_array();
 
-        $this->form_validation->set_rules('jabatan_fungsional', 'Jabatan fungsional', 'required');
-        $this->form_validation->set_rules('ikatan_kerja', 'Ikatan kerja', 'required');
-        $this->form_validation->set_rules('aktivitas', 'Aktivitas', 'required');
-        $this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim');
+        $this->form_validation->set_rules('tanggal_lahir', 'Tanggal Lahir', 'required');
+        $this->form_validation->set_rules('jenis_kelamin', 'Jenis Kelamin', 'required');
+        $this->form_validation->set_rules('agama', 'Agama', 'required');
+        $this->form_validation->set_rules('tinggi_badan', 'Tinggi Badan', 'trim');
 
         if ($this->form_validation->run() == false) {
 
@@ -170,20 +171,88 @@ class User extends CI_Controller
             $this->load->view('templates/footer');
 
         } else {
-            $jabatan_fungsional = $this->input->post('jabatan_fungsional');
-            $ikatan_kerja = $this->input->post('ikatan_kerja');
-            $aktivitas = $this->input->post('aktivitas');
-            $deskripsi = $this->input->post('deskripsi');
+            $tanggal_lahir = $this->input->post('tanggal_lahir');
+            $jenis_kelamin = $this->input->post('jenis_kelamin');
+            $agama = $this->input->post('agama');
+            $tinggi_badan = $this->input->post('tinggi_badan');
+            $berat_badan = $this->input->post('berat_badan');
+            $alamat = $this->input->post('alamat');
+            $nomor_telp = $this->input->post('nomor_telp');
            
-            $this->db->set('jabatan_fungsional', $jabatan_fungsional);
-            $this->db->set('status_ikatan_kerja', $ikatan_kerja);
-            $this->db->set('status_aktivitas', $aktivitas);
-            $this->db->set('deskripsi', $deskripsi);
+            $this->db->set('tanggal_lahir', $tanggal_lahir);
+            $this->db->set('jenis_kelamin', $jenis_kelamin);
+            $this->db->set('agama', $agama);
+            $this->db->set('tinggi_badan', $tinggi_badan);
+            $this->db->set('berat_badan', $berat_badan);
+            $this->db->set('alamat', $alamat);
+            $this->db->set('nomor_telp', $nomor_telp);
             $this->db->where('nidn', $this->session->userdata('nidn'));
-            $this->db->update('dosen');
+            $this->db->update('data_personal');
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil di update!</div>');
-            redirect('user/datainstansi');
+            redirect('user/datapersonal');
         }
     
+    }
+
+    public function dataPendidikan(){
+        $data['title'] = 'Data Riwayat Pendidikan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataPendidikan', $data);
+            $this->load->view('templates/footer');
+    }
+
+    public function dataPenelitian(){
+        $data['title'] = 'Data Riwayat Pendidikan';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataPenelitian', $data);
+            $this->load->view('templates/footer');
+    }
+    public function dataPengabdian(){
+        $data['title'] = 'Data Riwayat Pengabdian';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataPengabdian', $data);
+            $this->load->view('templates/footer');
+    }
+     public function dataMengajar(){
+        $data['title'] = 'Data Riwayat Mengajar';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataMengajar', $data);
+            $this->load->view('templates/footer');
+    }
+     public function dataPenunjang(){
+        $data['title'] = 'Data Penunjang';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+       $data['nidn'] = $this->db->get_where('user', ['nidn' => $this->session->userdata('nidn')])->row_array();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/sidebar', $data);
+            $this->load->view('templates/topbar', $data);
+            $this->load->view('user/dataPenunjang', $data);
+            $this->load->view('templates/footer');
     }
 }

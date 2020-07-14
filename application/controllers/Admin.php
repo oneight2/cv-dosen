@@ -93,7 +93,6 @@ class Admin extends CI_Controller
             'is_unique' => 'Email ini sudah terdaftar!'
         ]);
         $this->form_validation->set_rules('role', 'Role', 'required');
-        $this->form_validation->set_rules('jenis_kelamin', 'Jenis_kelamin', 'required');
         $this->form_validation->set_rules('program_studi', 'Program_studi', 'required');
 
         if ($this->form_validation->run() == false) {
@@ -117,7 +116,6 @@ class Admin extends CI_Controller
             $dataDosen = [
                 'nidn' => $this->input->post('nidn'),
                 'nama' => htmlspecialchars($this->input->post('nama', true)),
-                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                 'program_studi' => $this->input->post('program_studi'),
                 'perguruan_tinggi' => 'STT-Garut'
             ];

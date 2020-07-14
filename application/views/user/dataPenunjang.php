@@ -19,21 +19,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<?php $i = 1; ?>
-							<?php foreach ($dosen as $row) : ?>
-							<tr>
-								<th scope="row"><?= $i; ?></th>
-								<td><?= $row['nidn']; ?></td>
-								<td><?= $row['nama']; ?></td>
-								<td><?= $row['program_studi']; ?></td>
-								<td>
-									<a href="" class="badge badge-warning">access</a>
-									<a href="" class="badge badge-success">edit</a>
-									<a href="" class="badge badge-danger">delete</a>
-								</td>
-							</tr>
-							<?php $i++; ?>
-							<?php endforeach; ?>
+							
 						</tbody>
 					</table>
 				</div>
